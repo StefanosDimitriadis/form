@@ -157,7 +157,7 @@ export class AppComponent implements OnInit, IMultiSelectTexts, IMultiSelectSett
 	}
 
 	deleteRepresentation(id: number) {
-		this.representations.filter(representation => representation.id == id);
+		this.representations.filter(representation => representation.id != id);
 	}
 }
 
