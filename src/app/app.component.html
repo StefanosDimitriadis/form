@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h1>ΕΚΠΡΟΣΩΠΗΣΗ</h1>
+	</div>
+	<div class="panel-body">
+		<form class="form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit()">
+			<fieldset>
+				<div class="form-group required">
+					<label>Συναλλαγές</label>
+					<select [(ngModel)]="newRepresentation.name" class="form-control" formControlName="transactions" name="transactions" style="width:70%">
+						<option [value]="placeholder" disabled selected hidden>
+							Επιλέξτε συναλλαγή
+						</option>
+						<option *ngFor="let transaction of transactions"
+							[value]="transaction.name">{{transaction.name}}
+						</option>
+					</select>
+					<br>
+					<br>
+					<button class="btn" type="button" (click)="newTransaction()">Προσθήκη συναλλαγής</button>
+				</div>
+			</fieldset>
+			<fieldset>
+				<div class="form-group required">
+					<label>Εξουσιοδοτημένοι εκπρόσωποι</label>
+					<ss-multiselect-dropdown [(ngModel)]="newRepresentation.representatives" [options]="myOptions" [texts]="myTexts" [settings]="mySettings"
+					 formControlName="representatives">
+					</ss-multiselect-dropdown>
+				</div>
+			</fieldset>
+			<br>
+			<br>
+			<fieldset class="form-group">
+				<button type="button" class="btn" [disabled]="!form.valid" (click)="addRepresentation()">Νέα Εκπροσώπηση
+				</button>
+			</fieldset>
+			<br>
+			<br>
+			<fieldset class="form-group table table-striped table-bordered table-responsive">
+				<table class="table table-striped table-bordered table-responsive">
+					<thead>
+						<tr>
+							<th>Α / Α</th>
+							<th>Συναλλαγή</th>
+							<th>Εκπρόσωποι</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let representation of representations; let i = index;" class="panel panel-default">
+							<td>{{i + 1}}</td>
+							<td>{{representation.name}}</td>
+							<td>{{representation.representatives}}</td>
+							<td>
+								<button type="button" class="btn btn-danger" (click)="deleteRepresentation(i + 1)">Διαγραφή</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</fieldset>
+		</form>
+	</div>
+	<br>
+	<br>
+</div>
+<div class="form-group">
+	<span>
+    	<button type="submit" class="btn btn-primary"  [disabled]="this.representations.length < 1">Αποθήκευση</button>
+  	</span>
+</div>
